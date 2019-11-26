@@ -1,5 +1,4 @@
 const mongoose  = require('mongoose');
-const { Tweet } = require('../models');
 
 module.exports  =   new mongoose.Schema(
     {
@@ -9,7 +8,9 @@ module.exports  =   new mongoose.Schema(
         },
         email: {
             type: mongoose.Schema.Types.String,
-            required: true
+            required: true,
+            index: true,
+            unique: true
         },
         password: {
             type: mongoose.Schema.Types.String,
