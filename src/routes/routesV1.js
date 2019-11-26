@@ -11,8 +11,8 @@ const { compare, hash } = require('bcrypt');
 
 module.exports = (app) => {
     'use strict';
+    const router = express.Router();
     
-    var router = express.Router();
 
     router.get('/', (req, res) => {
         res.json({
@@ -20,5 +20,5 @@ module.exports = (app) => {
         });
     });
 
-    app.use('/v1', router)
+    app.use('/v1', router);
 }
