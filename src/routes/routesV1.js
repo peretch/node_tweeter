@@ -113,9 +113,34 @@ module.exports = (app) => {
             })
     })
 
-    router.put('/users', json(), checkJwt({ secret: JWT_SECRET }), (req, res) =>{
-        const userPayload = req.body;
-        res.json(userPayload);
+    /**
+     * Given an userId and a bearer token, updates User's value
+     * @param {String} userId   - User's id from mongoDB (ObjectId)
+     * @param {String} email    - Unique user's email
+     * @param {String} password - Pasword for the user
+     * @param {String} name     - User's name
+     * @returns {User} Updated user
+     */
+    router.put('/users/:userId', json(), checkJwt({ secret: JWT_SECRET }), (req, res) =>{
+        const userId        =   req.params.userId;
+        const userPayload   =   req.body;
+        
+        User.findByIdAndUpdate( userId, userPayload, {
+            new: true,
+            runValidators: true
+        } )
+        .then((doc) => {
+            res
+            .status(200)
+            .json(doc);
+        })
+        .catch((err) => {
+            res
+            .status(400)
+            .json({
+                error: err.message
+            })
+        })
     });
 
     app.use('/v1', router);
