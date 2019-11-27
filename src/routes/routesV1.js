@@ -114,7 +114,7 @@ module.exports = (app) => {
     })
 
     /**
-     * Given an userId and a bearer token, updates User's value
+     * Given an userId and a bearer token, updates User's information.
      * @param {String} userId   - User's id from mongoDB (ObjectId)
      * @param {String} email    - Unique user's email
      * @param {String} password - Pasword for the user
