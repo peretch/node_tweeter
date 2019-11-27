@@ -19,7 +19,8 @@ This project is an example of an implementation of tweeter with nodejs.
 Creates a new user and gives one token to interact with all the APIs.
 #### /users/:userId [PUT] 
 Given an userId and a bearer token, updates User's information.
-
+#### /users/:userId [DELETE] 
+Delete the authenticated user by passing ID and target user's token
 ### Sessions
 #### /sessions [POST]
 Given an email and his password, returns a token to interact with all the APIs.

@@ -143,5 +143,27 @@ module.exports = (app) => {
         })
     });
 
+    /**
+     * Delete the authenticated user by passing ID and target user's token
+     * @param {String} userId   - User's id from mongoDB (ObjectId)
+     * @returns {User} Deleted user
+     */
+    router.delete('/users/:userId', json(), checkJwt({ secret: JWT_SECRET }), (req, res) =>{
+        const auth = req.get('Authorization');
+        const { email } = decode(auth.split(' ')[1]);
+        const userId = req.params.userId;
+
+        User.findOneAndDelete({ _id: userId, email: email}, (doc) => {
+            res.json(doc)
+        })
+        .catch((err) => {
+            res
+            .status(400)
+            .json({
+                error: err.message
+            })
+        })
+    });
+
     app.use('/v1', router);
 }
